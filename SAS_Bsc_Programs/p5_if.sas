@@ -1,0 +1,15 @@
+libname xls "D:\SAS_Datasets\electricity.xls";
+data Years1;
+set xls."Year1-4$"n;
+if AvTemp ne .;
+Avcost = cost/Deg_Days;
+run;
+Proc print data = Years1;
+run;
+data Years1w;
+set xls."Year1-4$"n;
+where AvTemp ne .;
+Avcost = cost/Deg_Days;
+run;
+proc print data = Years1w;
+run;
