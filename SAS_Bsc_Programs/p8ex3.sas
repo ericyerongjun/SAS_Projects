@@ -1,0 +1,31 @@
+libname elect "D:\SAS_Datasets";
+data elect.Year4_elect;
+set elect.electricity;
+if substr(Time_Period,1,6) = "Year 4";
+run;
+data sum_year4;
+set elect.Year4_elect;
+retain total_temperature 0;
+total_temperature = total_temperature + average_temperature;
+average_average_temperature = total_temperature / _N_ ;
+run;
+data using_sum_year4;
+   set elect.Year4_elect end=last;
+   retain total_temperature 0;
+   /* Use sum function to accumulate Average_Temperature, treating missing as 0 */
+   total_temperature = sum(total_temperature, Average_Temperature);
+   average_average_temperature = total_temperature / _N_;
+   end;
+run;
+data using_plus_year4;
+set elect.Year4_elect;
+total_temperature + average_temperature;
+average_average_temperature = total_temperature / _N_ ;
+run;
+proc print data = sum_year4;
+run;
+proc print data = using_sum_year4;
+run;
+proc print data = using_plus_year4;
+run;
+
